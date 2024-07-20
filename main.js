@@ -15,25 +15,28 @@ renderer.shadowMap.enabled = true;
 
 const controls = new OrbitControls(camera, renderer.domElement)
 camera.position.set(200, 60, 0)
+controls.enablePan = false;
 controls.minPolarAngle = 1.2;
 controls.maxPolarAngle = 1.6;
 controls.update()
 
-window.start = () => {
-  document.querySelector(".bg-black").classList.add("hidden")
-  gsap.to(camera.position, {
-    x: 35,
-    y: 3,
-    z: 50,
-    duration: 2,
-    ease: "none",
-    onUpdate: function () {
-      controls.target = new T.Vector3(0, 0, 0)
-      controls.update()
-    },
-  },)
-  document.body.appendChild(renderer.domElement)
-}
+document.addEventListener("DOMContentLoaded", () => {
+  window.start = () => {
+    document.querySelector(".bg-black").classList.add("hidden")
+    gsap.to(camera.position, {
+      x: 35,
+      y: 3,
+      z: 50,
+      duration: 2,
+      ease: "none",
+      onUpdate: function () {
+        controls.target = new T.Vector3(0, 0, 0)
+        controls.update()
+      },
+    },)
+    document.body.appendChild(renderer.domElement)
+  }
+})
 
 loader.load("dake01.gltf", (gltf) => {
   var mesh = gltf.scene
